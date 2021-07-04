@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script>
+       
+        async function handleUpdateProfileRequest() {
+            const contEdit = document.getElementById('container-edit');
+            const cont = document.getElementById('container');
+
+            const payload = {
+                oldname: document.getElementById('name').textContent,
+                oldemail: document.getElementById('email').textContent,
+                name: document.getElementById('input-name').value, 
+                email: document.getElementById('input-email').value, 
+            };
+
+            console.log(document.getElementById('name'));
+            console.log(document.getElementById('name').textContent);
+
+            // const users = new User({
+            //     name: document.getElementById('input-name').value,
+            //     email: document.getElementById('input-email').value
+            // });
+                        
+            const response = await fetch ('http://localhost:3000/update-profile', {
+                method: "POST",
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            const jsonResponse = await response.json();
+            
+            document.getElementById("name").value = jsonResponse.name;
+            document.getElementById("email").value = jsonResponse.email;
+        }
+   </script>
+</head>
+<body class="container">
+    <div>
+        Name: <p id="name">123</p>
+        <hr />
+        Email: <p id="email">152</p>
+        <hr />
+        <!-- <button class="button editButton" >Edit Profile</button> -->
+    </div>
+    <div class="container-edit">
+        <h1 id="header">Update Profile</h1>
+        
+        Name: <input id="input-name" type="text">
+        <hr/>
+        Email: <input id="input-email" type="text">
+        <button class="button edit-button" onclick="handleUpdateProfileRequest()" >Edit Profile</button>
+    </div> 
+    <script src="code.js"></script>
+</body>
+
+</html>
